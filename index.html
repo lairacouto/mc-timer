@@ -1,0 +1,8506 @@
+<!DOCTYPE html>
+
+
+
+<html lang="pt-BR">
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+
+
+
+
+
+
+
+    <meta
+
+
+
+        name="viewport"
+
+
+
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+
+
+
+    >
+
+
+
+
+
+
+
+    <meta name="theme-color" content="#05080d">
+
+
+
+
+
+
+
+    <title>MC Timer</title>
+
+
+
+
+
+
+
+    <style>
+
+
+
+
+
+
+
+        * {
+
+
+
+            box-sizing: border-box;
+
+
+
+            margin: 0;
+
+
+
+            padding: 0;
+
+
+
+        }
+
+
+
+
+
+
+
+        :root {
+
+
+
+            --preto: #05080d;
+
+
+
+            --card: #0d131c;
+
+
+
+            --card2: #111a25;
+
+
+
+
+
+
+
+            --azul: #0797ff;
+
+
+
+
+
+
+
+            --branco: #ffffff;
+
+
+
+            --cinza: #8994a3;
+
+
+
+
+
+
+
+            --preparacao: #ffd600;
+
+
+
+            --exercicio: #ff4054;
+
+
+
+            --intervalo: #00e887;
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        body {
+
+
+
+
+
+
+
+            font-family:
+
+
+
+                Arial,
+
+
+
+                Helvetica,
+
+
+
+                sans-serif;
+
+
+
+
+
+
+
+            background:
+
+
+
+                radial-gradient(
+
+
+
+                    circle at top,
+
+
+
+                    #101e31 0%,
+
+
+
+                    var(--preto) 55%
+
+
+
+                );
+
+
+
+
+
+
+
+            color: var(--branco);
+
+
+
+
+
+
+
+            min-height: 100vh;
+
+
+
+
+
+
+
+            padding: 18px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .app {
+
+
+
+
+
+
+
+            width: 100%;
+
+
+
+
+
+
+
+            max-width: 520px;
+
+
+
+
+
+
+
+            margin: 0 auto;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           LOGO
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .logo-top {
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+            margin: 4px 0 22px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .logo-top img {
+
+
+
+
+
+
+
+            width: min(260px, 72vw);
+
+
+
+
+
+
+
+            height: auto;
+
+
+
+
+
+
+
+            display: inline-block;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           CARDS
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .card {
+
+
+
+
+
+
+
+            background:
+
+
+
+                linear-gradient(
+
+
+
+                    145deg,
+
+
+
+                    rgba(22, 32, 45, .96),
+
+
+
+                    rgba(8, 13, 20, .98)
+
+
+
+                );
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.08);
+
+
+
+
+
+
+
+            border-radius: 22px;
+
+
+
+
+
+
+
+            padding: 20px;
+
+
+
+
+
+
+
+            margin-bottom: 15px;
+
+
+
+
+
+
+
+            box-shadow:
+
+
+
+                0 15px 45px
+
+
+
+                rgba(0,0,0,.28);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           CONFIGURAÇÃO
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .titulo {
+
+
+
+
+
+
+
+            font-size: 21px;
+
+
+
+
+
+
+
+            font-weight: 700;
+
+
+
+
+
+
+
+            margin-bottom: 5px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .subtitulo {
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 14px;
+
+
+
+
+
+
+
+            margin-bottom: 18px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .config {
+
+
+
+
+
+
+
+            display: flex;
+
+
+
+
+
+
+
+            flex-direction: column;
+
+
+
+
+
+
+
+            gap: 11px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo {
+
+
+
+
+
+
+
+            background:
+
+
+
+                var(--card2);
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.07);
+
+
+
+
+
+
+
+            border-radius: 15px;
+
+
+
+
+
+
+
+            padding: 13px 14px;
+
+
+
+
+
+
+
+            display: flex;
+
+
+
+
+
+
+
+            align-items: center;
+
+
+
+
+
+
+
+            justify-content: space-between;
+
+
+
+
+
+
+
+            gap: 12px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo-texto {
+
+
+
+
+
+
+
+            min-width: 0;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo-titulo {
+
+
+
+
+
+
+
+            display: block;
+
+
+
+
+
+
+
+            font-size: 15px;
+
+
+
+
+
+
+
+            font-weight: 600;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo-desc {
+
+
+
+
+
+
+
+            display: block;
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 12px;
+
+
+
+
+
+
+
+            margin-top: 3px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo input {
+
+
+
+
+
+
+
+            width: 74px;
+
+
+
+
+
+
+
+            height: 44px;
+
+
+
+
+
+
+
+            border-radius: 11px;
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                #344151;
+
+
+
+
+
+
+
+            background: #080d14;
+
+
+
+
+
+
+
+            color: white;
+
+
+
+
+
+
+
+            font-size: 19px;
+
+
+
+
+
+
+
+            font-weight: bold;
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+            outline: none;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .campo input:focus {
+
+
+
+
+
+
+
+            border-color:
+
+
+
+                var(--azul);
+
+
+
+
+
+
+
+            box-shadow:
+
+
+
+                0 0 0 2px
+
+
+
+                rgba(7,151,255,.15);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           TEMPO TOTAL
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .total {
+
+
+
+
+
+
+
+            margin-top: 14px;
+
+
+
+
+
+
+
+            padding: 15px;
+
+
+
+
+
+
+
+            border-radius: 15px;
+
+
+
+
+
+
+
+            background: #101a26;
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.07);
+
+
+
+
+
+
+
+            display: flex;
+
+
+
+
+
+
+
+            justify-content: space-between;
+
+
+
+
+
+
+
+            align-items: center;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .total span {
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 14px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .total strong {
+
+
+
+
+
+
+
+            font-size: 24px;
+
+
+
+
+
+
+
+            color: var(--azul);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           BOTÃO PRINCIPAL
+
+
+
+        ========================================= */
+        .btn-main {
+            width: 100%;
+            margin-top: 16px;
+            min-height: 56px;
+            border: 1px solid transparent;
+            border-radius: 15px;
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: .2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition:
+                transform .15s ease,
+                background .15s ease,
+                border-color .15s ease,
+                box-shadow .15s ease;
+        }
+
+        .btn-main:active {
+            transform: scale(.985);
+        }
+
+        .btn-main .btn-icon {
+            width: 19px;
+            height: 19px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 19px;
+        }
+
+        .btn-main .btn-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #btnSalvarTreino {
+            background: #111a24;
+            border-color: #2d4054;
+            color: #dce8f4;
+            box-shadow: none;
+        }
+
+        #btnSalvarTreino:hover {
+            background: #162331;
+            border-color: #3c5872;
+        }
+
+        #btnComecar {
+            background: linear-gradient(135deg, #0797ff, #0069d1);
+            box-shadow: 0 9px 28px rgba(0,126,255,.24);
+        }
+
+        #btnComecar:hover {
+            box-shadow: 0 11px 32px rgba(0,126,255,.32);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           TELA DO TREINO
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        #telaTreino,
+
+
+
+        #telaFinal {
+
+
+
+
+
+
+
+            display: none;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .fase {
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+            font-size: 18px;
+
+
+
+
+
+
+
+            font-weight: 800;
+
+
+
+
+
+
+
+            letter-spacing: 2px;
+
+
+
+
+
+
+
+            margin-bottom: 13px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .preparacao {
+
+
+
+
+
+
+
+            color:
+
+
+
+                var(--preparacao);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .exercicio {
+
+
+
+
+
+
+
+            color:
+
+
+
+                var(--exercicio);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .intervalo {
+
+
+
+
+
+
+
+            color:
+
+
+
+                var(--intervalo);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           CÍRCULO
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .circulo-area {
+
+
+
+
+
+
+
+            position: relative;
+
+
+
+
+
+
+
+            width:
+
+
+
+                min(86vw, 350px);
+
+
+
+
+
+
+
+            height:
+
+
+
+                min(86vw, 350px);
+
+
+
+
+
+
+
+            margin:
+
+
+
+                0 auto 16px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .circulo-svg {
+
+
+
+
+
+
+
+            width: 100%;
+
+
+
+
+
+
+
+            height: 100%;
+
+
+
+
+
+
+
+            transform:
+
+
+
+                rotate(-90deg);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .circulo-fundo {
+
+
+
+
+
+
+
+            fill: none;
+
+
+
+
+
+
+
+            stroke: #202b38;
+
+
+
+
+
+
+
+            stroke-width: 12;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .circulo-progresso {
+
+
+
+
+
+
+
+            fill: none;
+
+
+
+
+
+
+
+            stroke: var(--azul);
+
+
+
+
+
+
+
+            stroke-width: 12;
+
+
+
+
+
+
+
+            stroke-linecap: round;
+
+
+
+
+
+
+
+            transition:
+
+
+
+                stroke .25s ease,
+
+
+
+                stroke-dashoffset .12s linear;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .tempo-centro {
+
+
+
+
+
+
+
+            position: absolute;
+
+
+
+
+
+
+
+            inset: 0;
+
+
+
+
+
+
+
+            display: flex;
+
+
+
+
+
+
+
+            flex-direction: column;
+
+
+
+
+
+
+
+            justify-content: center;
+
+
+
+
+
+
+
+            align-items: center;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .tempo-numero {
+
+
+
+
+
+
+
+            font-size:
+
+
+
+                clamp(58px, 18vw, 82px);
+
+
+
+
+
+
+
+            line-height: 1;
+
+
+
+
+
+
+
+            font-weight: 700;
+
+
+
+
+
+
+
+            font-variant-numeric:
+
+
+
+                tabular-nums;
+
+
+
+
+
+
+
+            letter-spacing: -3px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .tempo-legenda {
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 13px;
+
+
+
+
+
+
+
+            margin-top: 9px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           INFORMAÇÕES
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .info {
+
+
+
+
+
+
+
+            display: grid;
+
+
+
+
+
+
+
+            grid-template-columns:
+
+
+
+                1fr 1fr 1fr;
+
+
+
+
+
+
+
+            background:
+
+
+
+                var(--card2);
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.07);
+
+
+
+
+
+
+
+            border-radius: 15px;
+
+
+
+
+
+
+
+            overflow: hidden;
+
+
+
+
+
+
+
+            margin-bottom: 12px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .info-item {
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+            padding: 12px 5px;
+
+
+
+
+
+
+
+            border-right:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.07);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .info-item:last-child {
+
+
+
+
+
+
+
+            border-right: 0;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .info-item span {
+
+
+
+
+
+
+
+            display: block;
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 10px;
+
+
+
+
+
+
+
+            margin-bottom: 5px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .info-item strong {
+
+
+
+
+
+
+
+            font-size: 16px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           PRÓXIMA ETAPA
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .proximo {
+
+
+
+
+
+
+
+            background: #101a25;
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                rgba(255,255,255,.07);
+
+
+
+
+
+
+
+            border-radius: 15px;
+
+
+
+
+
+
+
+            padding: 12px;
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            font-size: 12px;
+
+
+
+
+
+
+
+            margin-bottom: 14px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .proximo strong {
+
+
+
+
+
+
+
+            display: block;
+
+
+
+
+
+
+
+            color: white;
+
+
+
+
+
+
+
+            margin-top: 4px;
+
+
+
+
+
+
+
+            font-size: 15px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           CONTROLES
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .controles {
+
+
+
+
+
+
+
+            display: grid;
+
+
+
+
+
+
+
+            grid-template-columns:
+
+
+
+                1fr 1fr;
+
+
+
+
+
+
+
+            gap: 9px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .btn-control {
+
+
+
+
+
+
+
+            min-height: 50px;
+
+
+
+
+
+
+
+            border-radius: 13px;
+
+
+
+
+
+
+
+            border:
+
+
+
+                1px solid
+
+
+
+                #344151;
+
+
+
+
+
+
+
+            background: #111a24;
+
+
+
+
+
+
+
+            color: white;
+
+
+
+
+
+
+
+            font-size: 14px;
+
+
+
+
+
+
+
+            font-weight: bold;
+
+
+
+
+
+
+
+            cursor: pointer;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .btn-stop {
+
+
+
+
+
+
+
+            border-color:
+
+
+
+                rgba(255,64,84,.35);
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           FINAL
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+        .final {
+
+
+
+
+
+
+
+            text-align: center;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .final-icon {
+
+
+
+
+
+
+
+            width: 76px;
+
+
+
+
+
+
+
+            height: 76px;
+
+
+
+
+
+
+
+            border-radius: 50%;
+
+
+
+
+
+
+
+            background:
+
+
+
+                rgba(0,232,135,.12);
+
+
+
+
+
+
+
+            border:
+
+
+
+                2px solid
+
+
+
+                var(--intervalo);
+
+
+
+
+
+
+
+            display: flex;
+
+
+
+
+
+
+
+            align-items: center;
+
+
+
+
+
+
+
+            justify-content: center;
+
+
+
+
+
+
+
+            margin:
+
+
+
+                0 auto 17px;
+
+
+
+
+
+
+
+            font-size: 32px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .final h2 {
+
+
+
+
+
+
+
+            font-size: 26px;
+
+
+
+
+
+
+
+            margin-bottom: 7px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .final p {
+
+
+
+
+
+
+
+            color: var(--cinza);
+
+
+
+
+
+
+
+            margin-bottom: 18px;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* =========================================
+
+
+
+           CELULARES PEQUENOS
+
+
+
+        ========================================= */
+
+
+
+
+
+
+
+
+        /* =========================================
+           MEUS TREINOS
+        ========================================= */
+
+        .treinos-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .treinos-header .titulo {
+            margin-bottom: 0;
+        }
+
+        .btn-novo {
+            width: auto;
+            min-height: 42px;
+            margin: 0;
+            padding: 0 16px;
+            border: 1px solid rgba(7,151,255,.45);
+            border-radius: 12px;
+            background: rgba(7,151,255,.10);
+            color: #eaf6ff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .1px;
+            white-space: nowrap;
+            box-shadow: none;
+        }
+
+        .btn-novo:hover {
+            background: rgba(7,151,255,.16);
+            border-color: rgba(7,151,255,.70);
+        }
+
+        .btn-novo:active {
+            transform: scale(.985);
+        }
+
+        .treinos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            margin-bottom: 16px;
+        }
+
+        .treino-card {
+            background: #101a26;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 17px;
+            padding: 15px;
+        }
+
+        .treino-card h3 {
+            font-size: 17px;
+            margin: 0 0 6px;
+        }
+
+        .treino-detalhes {
+            color: var(--cinza);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .treino-acoes {
+            display: flex;
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .btn-treino {
+            flex: 1;
+            min-height: 42px;
+            border: 1px solid #344151;
+            border-radius: 11px;
+            background: #111a24;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0 7px;
+        }
+
+        .btn-treino-iniciar {
+            background: linear-gradient(135deg, #0797ff, #0069d1);
+            border-color: transparent;
+        }
+
+        .btn-treino-editar {
+            flex: 0 0 92px;
+        }
+
+        .btn-treino-excluir {
+            flex: 0 0 92px;
+            color: #ff7180;
+            border-color: rgba(255,64,84,.28);
+        }
+
+        .treinos-vazio {
+            text-align: center;
+            color: var(--cinza);
+            background: #101a26;
+            border: 1px dashed rgba(255,255,255,.10);
+            border-radius: 17px;
+            padding: 25px 18px;
+            margin-bottom: 16px;
+        }
+
+        .treinos-vazio strong {
+            display: block;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        .btn-voltar {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 10px;
+            border: 1px solid #2d4054;
+            border-radius: 13px;
+            background: transparent;
+            color: #aebdcd;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .15px;
+            cursor: pointer;
+            transition:
+                background .15s ease,
+                border-color .15s ease,
+                color .15s ease;
+        }
+
+        .btn-voltar:hover {
+            background: #101a25;
+            border-color: #40576e;
+            color: white;
+        }
+
+
+        @media (max-width: 380px) {
+
+
+
+
+
+
+
+            body {
+
+
+
+
+
+
+
+                padding: 10px;
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+            .card {
+
+
+
+
+
+
+
+                padding: 16px;
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+            .circulo-area {
+
+
+
+
+
+
+
+                width: 280px;
+
+
+
+
+
+
+
+                height: 280px;
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    </style>
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+<div class="app">
+
+
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+
+
+
+         LOGO
+
+
+
+    ========================================= -->
+
+
+
+
+
+
+
+    <div class="logo-top">
+
+
+
+
+
+
+
+        <img
+
+
+
+            src="imagens/logo-mc-timer.png"
+
+
+
+            alt="MC Timer"
+
+
+
+        >
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+
+
+
+         CONFIGURAÇÃO
+
+
+
+    ========================================= -->
+
+
+
+
+
+
+
+    
+    <!-- =========================================
+         MEUS TREINOS
+    ========================================= -->
+
+    <section
+        id="telaInicio"
+        class="card"
+    >
+        <div class="treinos-header">
+            <h1 class="titulo">Meus treinos</h1>
+
+            <button
+                class="btn-main btn-novo"
+                id="btnNovoTreinoInicio"
+            >
+                + NOVO TREINO
+            </button>
+        </div>
+
+        <p class="subtitulo">
+            Escolha um treino salvo ou crie um novo.
+        </p>
+
+        <div id="listaTreinos" class="treinos-lista"></div>
+
+        <div id="treinosVazio" class="treinos-vazio">
+            <strong>Nenhum treino salvo ainda</strong>
+            Crie seu primeiro treino e salve para usar novamente.
+        </div>
+    </section>
+
+
+<section
+
+
+
+        id="telaConfiguracao"
+
+
+
+        class="card"
+
+
+
+    >
+
+
+
+
+
+
+
+        <div class="treinos-header">
+            <h1 class="titulo" id="tituloConfiguracao">Novo treino</h1>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <p class="subtitulo">
+
+
+
+            Defina o circuito e comece.
+
+
+
+        </p>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="config">
+
+
+
+
+
+
+
+
+
+
+
+            <div class="campo">
+
+
+
+
+
+
+
+                <div class="campo-texto">
+
+
+
+
+
+
+
+                    <span class="campo-titulo">
+
+
+
+                        Quantidade de exercícios
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                    <span class="campo-desc">
+
+
+
+                        Exercícios em cada volta
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <input
+
+
+
+                    id="exercicios"
+
+
+
+                    type="number"
+
+
+
+                    min="1"
+
+
+
+                    max="100"
+
+
+
+                    value="7"
+
+
+
+                >
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="campo">
+
+
+
+
+
+
+
+                <div class="campo-texto">
+
+
+
+
+
+
+
+                    <span class="campo-titulo">
+
+
+
+                        Tempo de exercício
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                    <span class="campo-desc">
+
+
+
+                        Em segundos
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <input
+
+
+
+                    id="tempoExercicio"
+
+
+
+                    type="number"
+
+
+
+                    min="1"
+
+
+
+                    max="3600"
+
+
+
+                    value="30"
+
+
+
+                >
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="campo">
+
+
+
+
+
+
+
+                <div class="campo-texto">
+
+
+
+
+
+
+
+                    <span class="campo-titulo">
+
+
+
+                        Tempo de intervalo
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                    <span class="campo-desc">
+
+
+
+                        Em segundos
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <input
+
+
+
+                    id="tempoIntervalo"
+
+
+
+                    type="number"
+
+
+
+                    min="0"
+
+
+
+                    max="3600"
+
+
+
+                    value="20"
+
+
+
+                >
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="campo">
+
+
+
+
+
+
+
+                <div class="campo-texto">
+
+
+
+
+
+
+
+                    <span class="campo-titulo">
+
+
+
+                        Quantidade de voltas
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                    <span class="campo-desc">
+
+
+
+                        Repetições do circuito
+
+
+
+                    </span>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <input
+
+
+
+                    id="voltas"
+
+
+
+                    type="number"
+
+
+
+                    min="1"
+
+
+
+                    max="100"
+
+
+
+                    value="1"
+
+
+
+                >
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="total">
+
+
+
+
+
+
+
+            <span>
+
+
+
+                Tempo total do treino
+
+
+
+            </span>
+
+
+
+
+
+
+
+            <strong id="tempoTotal">
+
+
+
+                05:30
+
+
+
+            </strong>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <button
+            class="btn-main"
+            id="btnSalvarTreino"
+        >
+            <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 4.5h11l3 3V20H5V4.5Z"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linejoin="round"/>
+                    <path d="M8 4.5v6h8v-6M8 20v-5h8v5"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linejoin="round"/>
+                </svg>
+            </span>
+            SALVAR TREINO
+        </button>
+
+        <button
+
+
+
+            class="btn-main"
+
+
+
+            id="btnComecar"
+
+
+
+        >
+            <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5.2v13.6c0 .7.8 1.1 1.4.7l10.2-6.8c.5-.35.5-1.05 0-1.4L9.4 4.5C8.8 4.1 8 4.5 8 5.2Z"/>
+                </svg>
+            </span>
+            COMEÇAR
+
+
+
+        </button>
+
+        <button
+            class="btn-voltar"
+            id="btnVoltarTreinos"
+        >
+            <span aria-hidden="true">←</span>&nbsp; VOLTAR PARA MEUS TREINOS
+        </button>
+
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+
+
+
+         TELA DO TREINO
+
+
+
+    ========================================= -->
+
+
+
+
+
+
+
+    <section
+
+
+
+        id="telaTreino"
+
+
+
+        class="card"
+
+
+
+    >
+
+
+
+
+
+
+
+        <div
+
+
+
+            id="fase"
+
+
+
+            class="fase preparacao"
+
+
+
+        >
+
+
+
+            PREPARAÇÃO
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="circulo-area">
+
+
+
+
+
+
+
+            <svg
+
+
+
+                class="circulo-svg"
+
+
+
+                viewBox="0 0 300 300"
+
+
+
+            >
+
+
+
+
+
+
+
+                <circle
+
+
+
+                    class="circulo-fundo"
+
+
+
+                    cx="150"
+
+
+
+                    cy="150"
+
+
+
+                    r="132"
+
+
+
+                ></circle>
+
+
+
+
+
+
+
+
+
+
+
+                <circle
+
+
+
+                    id="circuloProgresso"
+
+
+
+                    class="circulo-progresso"
+
+
+
+                    cx="150"
+
+
+
+                    cy="150"
+
+
+
+                    r="132"
+
+
+
+                ></circle>
+
+
+
+
+
+
+
+            </svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="tempo-centro">
+
+
+
+
+
+
+
+                <div
+
+
+
+                    id="tempo"
+
+
+
+                    class="tempo-numero"
+
+
+
+                >
+
+
+
+                    00:05
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="tempo-legenda">
+
+
+
+                    tempo restante
+
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="info">
+
+
+
+
+
+
+
+            <div class="info-item">
+
+
+
+
+
+
+
+                <span>
+
+
+
+                    EXERCÍCIO
+
+
+
+                </span>
+
+
+
+
+
+
+
+                <strong id="numeroExercicio">
+
+
+
+                    1/7
+
+
+
+                </strong>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="info-item">
+
+
+
+
+
+
+
+                <span>
+
+
+
+                    VOLTA
+
+
+
+                </span>
+
+
+
+
+
+
+
+                <strong id="numeroVolta">
+
+
+
+                    1/1
+
+
+
+                </strong>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="info-item">
+
+
+
+
+
+
+
+                <span>
+
+
+
+                    TEMPO TOTAL
+
+
+
+                </span>
+
+
+
+
+
+
+
+                <strong id="tempoTotalTreino">
+
+
+
+                    05:30
+
+
+
+                </strong>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div
+
+
+
+            class="proximo"
+
+
+
+            id="proximo"
+
+
+
+        >
+
+
+
+
+
+
+
+            Próximo:
+
+
+
+
+
+
+
+            <strong id="proximoTexto">
+
+
+
+                Exercício 1 de 7
+
+
+
+            </strong>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="controles">
+
+
+
+
+
+
+
+            <button
+
+
+
+                class="btn-control"
+
+
+
+                id="btnPausar"
+
+
+
+            >
+
+
+
+                ⏸ &nbsp; PAUSAR
+
+
+
+            </button>
+
+
+
+
+
+
+
+
+
+
+
+            <button
+
+
+
+                class="btn-control btn-stop"
+
+
+
+                id="btnParar"
+
+
+
+            >
+
+
+
+                ■ &nbsp; PARAR
+
+
+
+            </button>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+
+
+
+         TELA FINAL
+
+
+
+    ========================================= -->
+
+
+
+
+
+
+
+    <section
+
+
+
+        id="telaFinal"
+
+
+
+        class="card final"
+
+
+
+    >
+
+
+
+
+
+
+
+        <div class="final-icon">
+
+
+
+            ✓
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <h2>
+
+
+
+            Treino concluído!
+
+
+
+        </h2>
+
+
+
+
+
+
+
+
+
+
+
+        <p>
+
+
+
+            Circuito finalizado com sucesso.
+
+
+
+        </p>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="total">
+
+
+
+
+
+
+
+            <span>
+
+
+
+                Tempo total
+
+
+
+            </span>
+
+
+
+
+
+
+
+            <strong id="tempoFinal">
+
+
+
+                00:00
+
+
+
+            </strong>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <button
+
+
+
+            class="btn-main"
+
+
+
+            id="btnNovoTreino"
+
+
+
+        >
+
+
+
+            ↻ &nbsp; NOVO TREINO
+
+
+
+        </button>
+
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       ELEMENTOS
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    const $ = id =>
+
+
+
+        document.getElementById(id);
+
+
+
+
+
+
+
+
+
+
+
+    const telaConfiguracao =
+
+
+
+        $("telaConfiguracao");
+
+
+
+
+
+
+
+
+
+
+
+    
+    const telaInicio =
+        $("telaInicio");
+
+    const listaTreinos =
+        $("listaTreinos");
+
+    const treinosVazio =
+        $("treinosVazio");
+
+    const tituloConfiguracao =
+        $("tituloConfiguracao");
+
+
+const telaTreino =
+
+
+
+        $("telaTreino");
+
+
+
+
+
+
+
+
+
+
+
+    const telaFinal =
+
+
+
+        $("telaFinal");
+
+
+
+
+
+
+
+
+
+
+
+    const exerciciosInput =
+
+
+
+        $("exercicios");
+
+
+
+
+
+
+
+
+
+
+
+    const tempoExercicioInput =
+
+
+
+        $("tempoExercicio");
+
+
+
+
+
+
+
+
+
+
+
+    const tempoIntervaloInput =
+
+
+
+        $("tempoIntervalo");
+
+
+
+
+
+
+
+
+
+
+
+    const voltasInput =
+
+
+
+        $("voltas");
+
+
+
+
+
+
+
+
+
+
+
+    const tempoTotal =
+
+
+
+        $("tempoTotal");
+
+
+
+
+
+
+
+
+
+
+
+    const tempoTotalTreino =
+
+
+
+        $("tempoTotalTreino");
+
+
+
+
+
+
+
+
+
+
+
+    const tempoFinal =
+
+
+
+        $("tempoFinal");
+
+
+
+
+
+
+
+
+
+
+
+    const fase =
+
+
+
+        $("fase");
+
+
+
+
+
+
+
+
+
+
+
+    const tempo =
+
+
+
+        $("tempo");
+
+
+
+
+
+
+
+
+
+
+
+    const numeroExercicio =
+
+
+
+        $("numeroExercicio");
+
+
+
+
+
+
+
+
+
+
+
+    const numeroVolta =
+
+
+
+        $("numeroVolta");
+
+
+
+
+
+
+
+
+
+
+
+    const proximoTexto =
+
+
+
+        $("proximoTexto");
+
+
+
+
+
+
+
+
+
+
+
+    const circuloProgresso =
+
+
+
+        $("circuloProgresso");
+
+
+
+
+
+
+
+
+
+
+
+    const btnComecar =
+
+
+
+        $("btnComecar");
+
+
+
+
+
+
+
+
+
+
+
+    
+    const btnSalvarTreino =
+        $("btnSalvarTreino");
+
+    const btnNovoTreinoInicio =
+        $("btnNovoTreinoInicio");
+
+    const btnVoltarTreinos =
+        $("btnVoltarTreinos");
+
+
+const btnPausar =
+
+
+
+        $("btnPausar");
+
+
+
+
+
+
+
+
+
+
+
+    const btnParar =
+
+
+
+        $("btnParar");
+
+
+
+
+
+
+
+
+
+
+
+    const btnNovoTreino =
+
+
+
+        $("btnNovoTreino");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       ESTADO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    let timer = null;
+
+
+
+
+
+
+
+    let rodando = false;
+
+
+
+
+
+
+
+    let pausado = false;
+
+
+
+
+
+
+
+    let faseAtual = "preparacao";
+
+
+
+
+
+
+
+    let exercicioAtual = 1;
+
+
+
+
+
+
+
+    let voltaAtual = 1;
+
+
+
+
+
+
+
+    let tempoRestante = 5;
+
+
+
+
+
+
+
+    let inicioFase = 0;
+
+
+
+
+
+
+
+    let duracaoFase = 5;
+
+
+
+
+
+
+
+    let tempoPausado = 0;
+
+
+
+
+
+
+
+    let audioContext = null;
+
+
+
+
+
+
+
+    let ultimoSegundoComBip = null;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       CÍRCULO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    const raio = 132;
+
+
+
+
+
+
+
+    const circunferencia =
+
+
+
+        2 * Math.PI * raio;
+
+
+
+
+
+
+
+
+
+
+
+    circuloProgresso.style.strokeDasharray =
+
+
+
+        circunferencia;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       CONFIGURAÇÃO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function config() {
+
+
+
+
+
+
+
+        return {
+
+
+
+
+
+
+
+            exercicios:
+
+
+
+                Math.max(
+
+
+
+                    1,
+
+
+
+                    Math.min(
+
+
+
+                        100,
+
+
+
+                        Number(
+
+
+
+                            exerciciosInput.value
+
+
+
+                        ) || 1
+
+
+
+                    )
+
+
+
+                ),
+
+
+
+
+
+
+
+            exercicio:
+
+
+
+                Math.max(
+
+
+
+                    1,
+
+
+
+                    Math.min(
+
+
+
+                        3600,
+
+
+
+                        Number(
+
+
+
+                            tempoExercicioInput.value
+
+
+
+                        ) || 1
+
+
+
+                    )
+
+
+
+                ),
+
+
+
+
+
+
+
+            intervalo:
+
+
+
+                Math.max(
+
+
+
+                    0,
+
+
+
+                    Math.min(
+
+
+
+                        3600,
+
+
+
+                        Number(
+
+
+
+                            tempoIntervaloInput.value
+
+
+
+                        ) || 0
+
+
+
+                    )
+
+
+
+                ),
+
+
+
+
+
+
+
+            voltas:
+
+
+
+                Math.max(
+
+
+
+                    1,
+
+
+
+                    Math.min(
+
+
+
+                        100,
+
+
+
+                        Number(
+
+
+
+                            voltasInput.value
+
+
+
+                        ) || 1
+
+
+
+                    )
+
+
+
+                )
+
+
+
+
+
+
+
+        };
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       FORMATAR TEMPO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function formatarTempo(segundos) {
+
+
+
+
+
+
+
+        segundos =
+
+
+
+            Math.max(
+
+
+
+                0,
+
+
+
+                Math.ceil(segundos)
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        const minutos =
+
+
+
+            Math.floor(
+
+
+
+                segundos / 60
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        const segundosRestantes =
+
+
+
+            segundos % 60;
+
+
+
+
+
+
+
+
+
+
+
+        return (
+
+
+
+            String(minutos).padStart(2, "0")
+
+
+
+            +
+
+
+
+            ":"
+
+
+
+            +
+
+
+
+            String(
+
+
+
+                segundosRestantes
+
+
+
+            ).padStart(2, "0")
+
+
+
+        );
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       TEMPO TOTAL
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function calcularTempoTotal() {
+
+
+
+
+
+
+
+        const c =
+
+
+
+            config();
+
+
+
+
+
+
+
+
+
+
+
+        const tempoPorVolta =
+
+
+
+            (
+
+
+
+                c.exercicios *
+
+
+
+                c.exercicio
+
+
+
+            )
+
+
+
+            +
+
+
+
+            (
+
+
+
+                Math.max(
+
+
+
+                    0,
+
+
+
+                    c.exercicios - 1
+
+
+
+                )
+
+
+
+                *
+
+
+
+                c.intervalo
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        return (
+
+
+
+            tempoPorVolta *
+
+
+
+            c.voltas
+
+
+
+        );
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function atualizarTempoTotal() {
+
+
+
+
+
+
+
+        const total =
+
+
+
+            calcularTempoTotal();
+
+
+
+
+
+
+
+
+
+
+
+        tempoTotal.textContent =
+
+
+
+            formatarTempo(total);
+
+
+
+
+
+
+
+
+
+
+
+        tempoTotalTreino.textContent =
+
+
+
+            formatarTempo(total);
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       ÁUDIO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function prepararAudio() {
+
+
+
+
+
+
+
+        if (!audioContext) {
+
+
+
+
+
+
+
+            const AudioContext =
+
+
+
+                window.AudioContext ||
+
+
+
+                window.webkitAudioContext;
+
+
+
+
+
+
+
+
+
+
+
+            if (!AudioContext) {
+
+
+
+                return;
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+            audioContext =
+
+
+
+                new AudioContext();
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        if (
+
+
+
+            audioContext.state ===
+
+
+
+            "suspended"
+
+
+
+        ) {
+
+
+
+
+
+
+
+            audioContext.resume();
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function tocarBip() {
+
+
+
+
+
+
+
+if (!audioContext) {
+
+
+
+    return;
+
+
+
+}
+
+
+
+
+
+
+
+const oscilador =
+
+
+
+    audioContext.createOscillator();
+
+
+
+
+
+
+
+const ganho =
+
+
+
+    audioContext.createGain();
+
+
+
+
+
+
+
+oscilador.type = "square";
+
+
+
+oscilador.frequency.value = 850;
+
+
+
+
+
+
+
+oscilador.connect(ganho);
+
+
+
+ganho.connect(audioContext.destination);
+
+
+
+
+
+
+
+const agora =
+
+
+
+    audioContext.currentTime;
+
+
+
+
+
+
+
+ganho.gain.setValueAtTime(
+
+
+
+    0.001,
+
+
+
+    agora
+
+
+
+);
+
+
+
+
+
+
+
+ganho.gain.exponentialRampToValueAtTime(
+
+
+
+    0.22,
+
+
+
+    agora + 0.005
+
+
+
+);
+
+
+
+
+
+
+
+ganho.gain.exponentialRampToValueAtTime(
+
+
+
+    0.001,
+
+
+
+    agora + 0.075
+
+
+
+);
+
+
+
+
+
+
+
+oscilador.start(agora);
+
+
+
+
+
+
+
+oscilador.stop(
+
+
+
+    agora + 0.08
+
+
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+function tocarBipsFinal() {
+
+
+
+    if (!audioContext) {
+
+        return;
+
+    }
+
+
+
+    const agora = audioContext.currentTime;
+
+
+
+    const intervalo = 0.18;
+
+
+
+    for (let i = 0; i < 3; i++) {
+
+
+
+        const inicio = agora + (i * intervalo);
+
+
+
+        const oscilador =
+
+            audioContext.createOscillator();
+
+
+
+        const ganho =
+
+            audioContext.createGain();
+
+
+
+        oscilador.type = "square";
+
+        oscilador.frequency.value = 850;
+
+
+
+        oscilador.connect(ganho);
+
+        ganho.connect(audioContext.destination);
+
+
+
+        ganho.gain.setValueAtTime(
+
+            0.001,
+
+            inicio
+
+        );
+
+
+
+        ganho.gain.exponentialRampToValueAtTime(
+
+            0.22,
+
+            inicio + 0.005
+
+        );
+
+
+
+        ganho.gain.exponentialRampToValueAtTime(
+
+            0.001,
+
+            inicio + 0.075
+
+        );
+
+
+
+        oscilador.start(inicio);
+
+
+
+        oscilador.stop(
+
+            inicio + 0.08
+
+        );
+
+    }
+
+}
+
+
+
+
+
+
+
+/* =========================================
+
+   CÍRCULO
+
+========================================= */
+
+
+
+function atualizarCirculo() {
+
+
+
+
+
+
+
+const progresso =
+
+
+
+    Math.max(
+
+
+
+        0,
+
+
+
+        Math.min(
+
+
+
+            1,
+
+
+
+            tempoRestante / duracaoFase
+
+
+
+        )
+
+
+
+    );
+
+
+
+
+
+
+
+const offset =
+
+
+
+    circunferencia *
+
+
+
+    (1 - progresso);
+
+
+
+
+
+
+
+circuloProgresso.style.strokeDashoffset =
+
+
+
+    offset;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       CORES
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function atualizarCor() {
+
+
+
+
+
+
+
+        fase.className =
+
+
+
+            "fase";
+
+
+
+        if (faseAtual === "preparacao") {
+            fase.textContent = "PREPARAÇÃO";
+        } else if (faseAtual === "exercicio") {
+            fase.textContent = "EXERCÍCIO";
+        } else if (faseAtual === "intervalo") {
+            fase.textContent = "INTERVALO";
+        }
+
+
+
+
+
+
+
+
+
+
+
+        if (
+
+
+
+            faseAtual ===
+
+
+
+            "preparacao"
+
+
+
+        ) {
+
+
+
+
+
+
+
+            fase.classList.add(
+
+
+
+                "preparacao"
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+            circuloProgresso.style.stroke =
+
+
+
+                "var(--preparacao)";
+
+
+
+
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        if (
+
+
+
+            faseAtual ===
+
+
+
+            "exercicio"
+
+
+
+        ) {
+
+
+
+
+
+
+
+            fase.classList.add(
+
+
+
+                "exercicio"
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+            circuloProgresso.style.stroke =
+
+
+
+                "var(--exercicio)";
+
+
+
+
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        fase.classList.add(
+
+
+
+            "intervalo"
+
+
+
+        );
+
+
+
+
+
+
+
+
+
+
+
+        circuloProgresso.style.stroke =
+
+
+
+            "var(--intervalo)";
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       PRÓXIMA ETAPA
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function atualizarProximo() {
+
+    const c = config();
+
+    if (faseAtual === "preparacao") {
+        proximoTexto.textContent = `Exercício 1 de ${c.exercicios}`;
+        return;
+    }
+
+    if (faseAtual === "exercicio") {
+        if (exercicioAtual >= c.exercicios) {
+            proximoTexto.textContent =
+                voltaAtual < c.voltas
+                    ? `Volta ${voltaAtual + 1}`
+                    : "Final do treino";
+            return;
+        }
+
+        proximoTexto.textContent =
+            c.intervalo > 0
+                ? "Intervalo"
+                : `Exercício ${exercicioAtual + 1} de ${c.exercicios}`;
+        return;
+    }
+
+    if (exercicioAtual < c.exercicios) {
+        proximoTexto.textContent = `Exercício ${exercicioAtual + 1} de ${c.exercicios}`;
+        return;
+    }
+
+    if (voltaAtual < c.voltas) {
+        proximoTexto.textContent = `Volta ${voltaAtual + 1}`;
+        return;
+    }
+
+    proximoTexto.textContent = "Final do treino";
+}
+
+
+
+    function atualizarTela() {
+
+
+
+
+
+
+
+        tempo.textContent =
+
+
+
+            formatarTempo(
+
+
+
+                tempoRestante
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        atualizarCirculo();
+
+
+
+
+
+
+
+
+
+
+
+        atualizarCor();
+
+
+
+
+
+
+
+
+
+
+
+        const c =
+
+
+
+            config();
+
+
+
+
+
+
+
+
+
+
+
+        numeroExercicio.textContent =
+
+
+
+            `${exercicioAtual}/${c.exercicios}`;
+
+
+
+
+
+
+
+
+
+
+
+        numeroVolta.textContent =
+
+
+
+            `${voltaAtual}/${c.voltas}`;
+
+
+
+
+
+
+
+
+
+
+
+        atualizarProximo();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+       TREINOS SALVOS
+    ========================================= */
+
+    const CHAVE_TREINOS = "mcTimerTreinos";
+
+    let treinoEditandoId = null;
+
+    function obterTreinosSalvos() {
+        try {
+            const dados = JSON.parse(
+                localStorage.getItem(CHAVE_TREINOS) || "[]"
+            );
+
+            return Array.isArray(dados) ? dados : [];
+        } catch (erro) {
+            return [];
+        }
+    }
+
+    function guardarTreinosSalvos(treinos) {
+        localStorage.setItem(
+            CHAVE_TREINOS,
+            JSON.stringify(treinos)
+        );
+    }
+
+    function escaparHtml(texto) {
+        const div = document.createElement("div");
+        div.textContent = texto;
+        return div.innerHTML;
+    }
+
+    function renderizarTreinos() {
+        const treinos = obterTreinosSalvos();
+
+        listaTreinos.innerHTML = "";
+
+        treinosVazio.style.display =
+            treinos.length === 0 ? "block" : "none";
+
+        treinos.forEach(treino => {
+            const card = document.createElement("div");
+            card.className = "treino-card";
+
+            const voltasTexto =
+                treino.voltas === 1
+                    ? "1 volta"
+                    : `${treino.voltas} voltas`;
+
+            card.innerHTML = `
+                <h3>${escaparHtml(treino.nome)}</h3>
+
+                <div class="treino-detalhes">
+                    ${treino.exercicios} exercícios • ${voltasTexto}<br>
+                    ${treino.exercicio}s exercício • ${treino.intervalo}s intervalo
+                </div>
+
+                <div class="treino-acoes">
+                    <button
+                        class="btn-treino btn-treino-iniciar"
+                        data-acao="iniciar"
+                        data-id="${treino.id}"
+                    >
+                        ▶ INICIAR
+                    </button>
+
+                    <button
+                        class="btn-treino btn-treino-editar"
+                        data-acao="editar"
+                        data-id="${treino.id}"
+                    >
+                        EDITAR
+                    </button>
+
+                    <button
+                        class="btn-treino btn-treino-excluir"
+                        data-acao="excluir"
+                        data-id="${treino.id}"
+                    >
+                        EXCLUIR
+                    </button>
+                </div>
+            `;
+
+            listaTreinos.appendChild(card);
+        });
+
+        listaTreinos.querySelectorAll("button").forEach(botao => {
+            botao.addEventListener("click", () => {
+                const id = botao.dataset.id;
+
+                if (botao.dataset.acao === "iniciar") {
+                    iniciarTreinoSalvo(id);
+                } else if (botao.dataset.acao === "editar") {
+                    editarTreino(id);
+                } else {
+                    excluirTreino(id);
+                }
+            });
+        });
+    }
+
+    function mostrarInicio() {
+        telaInicio.style.display = "block";
+        telaConfiguracao.style.display = "none";
+        telaTreino.style.display = "none";
+        telaFinal.style.display = "none";
+
+        renderizarTreinos();
+    }
+
+    function mostrarConfiguracao() {
+        telaInicio.style.display = "none";
+        telaConfiguracao.style.display = "block";
+        telaTreino.style.display = "none";
+        telaFinal.style.display = "none";
+
+        tituloConfiguracao.textContent = "Novo treino";
+    }
+
+    function salvarTreino() {
+        const nome = window.prompt(
+            "Digite um nome para este treino:"
+        );
+
+        if (nome === null) {
+            return;
+        }
+
+        const nomeLimpo = nome.trim();
+
+        if (!nomeLimpo) {
+            alert("Digite um nome para salvar o treino.");
+            return;
+        }
+
+        const c = config();
+        const treinos = obterTreinosSalvos();
+
+        const dadosTreino = {
+            nome: nomeLimpo,
+            exercicios: c.exercicios,
+            exercicio: c.exercicio,
+            intervalo: c.intervalo,
+            voltas: c.voltas
+        };
+
+        if (treinoEditandoId) {
+            const indice = treinos.findIndex(
+                item => item.id === treinoEditandoId
+            );
+
+            if (indice !== -1) {
+                treinos[indice] = {
+                    ...treinos[indice],
+                    ...dadosTreino
+                };
+            }
+        } else {
+            treinos.push({
+                id: Date.now().toString(),
+                ...dadosTreino
+            });
+        }
+
+        guardarTreinosSalvos(treinos);
+        treinoEditandoId = null;
+        mostrarInicio();
+    }
+
+    function obterTreinoPorId(id) {
+        return obterTreinosSalvos()
+            .find(item => item.id === id);
+    }
+
+    function iniciarTreinoSalvo(id) {
+        const treino = obterTreinoPorId(id);
+
+        if (!treino) {
+            return;
+        }
+
+        exerciciosInput.value = treino.exercicios;
+        tempoExercicioInput.value = treino.exercicio;
+        tempoIntervaloInput.value = treino.intervalo;
+        voltasInput.value = treino.voltas;
+
+        atualizarTempoTotal();
+
+        comecar();
+    }
+
+    function editarTreino(id) {
+        const treino = obterTreinoPorId(id);
+
+        if (!treino) {
+            return;
+        }
+
+        exerciciosInput.value = treino.exercicios;
+        tempoExercicioInput.value = treino.exercicio;
+        tempoIntervaloInput.value = treino.intervalo;
+        voltasInput.value = treino.voltas;
+
+        atualizarTempoTotal();
+
+        telaInicio.style.display = "none";
+        telaConfiguracao.style.display = "block";
+        telaTreino.style.display = "none";
+        telaFinal.style.display = "none";
+
+        tituloConfiguracao.textContent = treino.nome;
+        treinoEditandoId = treino.id;
+    }
+
+    function excluirTreino(id) {
+        const treinos = obterTreinosSalvos();
+        const treino = treinos.find(item => item.id === id);
+
+        if (!treino) {
+            return;
+        }
+
+        if (!window.confirm(`Excluir o treino "${treino.nome}"?`)) {
+            return;
+        }
+
+        guardarTreinosSalvos(
+            treinos.filter(item => item.id !== id)
+        );
+
+        renderizarTreinos();
+    }
+
+
+    /* =========================================
+
+
+
+       COMEÇAR
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function comecar() {
+
+
+
+
+
+
+
+        prepararAudio();
+
+
+
+
+
+
+
+        ultimoSegundoComBip = null;
+
+
+
+
+
+
+
+
+
+
+
+        exercicioAtual = 1;
+
+
+
+
+
+
+
+        voltaAtual = 1;
+
+
+
+
+
+
+
+
+
+
+
+        faseAtual =
+
+
+
+            "preparacao";
+
+
+
+
+
+
+
+
+
+
+
+        tempoRestante = 5;
+
+
+
+
+
+
+
+        duracaoFase = 5;
+
+
+
+
+
+
+
+
+
+
+
+        inicioFase =
+
+
+
+            Date.now();
+
+
+
+
+
+
+
+
+
+
+
+        rodando = true;
+
+
+
+
+
+
+
+        pausado = false;
+
+
+
+
+
+
+
+
+
+
+
+        telaConfiguracao.style.display =
+
+
+
+            "none";
+
+        telaInicio.style.display =
+
+
+
+            "none";
+
+
+
+
+
+
+
+
+
+
+
+        telaFinal.style.display =
+
+
+
+            "none";
+
+
+
+
+
+
+
+
+
+
+
+        telaTreino.style.display =
+
+
+
+            "block";
+
+
+
+
+
+
+
+
+
+
+
+        clearInterval(timer);
+
+
+
+
+
+
+
+
+
+
+
+        timer =
+
+
+
+            setInterval(
+
+
+
+                atualizarTimer,
+
+
+
+                100
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        atualizarTela();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       TIMER
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function atualizarTimer() {
+
+
+
+
+
+
+
+        if (
+
+
+
+            !rodando ||
+
+
+
+            pausado
+
+
+
+        ) {
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        tempoRestante =
+
+
+
+            Math.max(
+
+
+
+                0,
+
+
+
+                duracaoFase -
+
+
+
+                (
+
+
+
+                    Date.now() -
+
+
+
+                    inicioFase
+
+
+
+                ) / 1000
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        atualizarTela();
+
+
+
+
+
+
+
+
+
+
+
+        const segundo = Math.ceil(tempoRestante);
+
+
+
+        if (
+
+
+
+            tempoRestante > 0 &&
+
+
+
+            tempoRestante <= 3 &&
+
+
+
+            segundo !== ultimoSegundoComBip
+
+        ) {
+
+
+
+            ultimoSegundoComBip = segundo;
+
+
+
+            tocarBip();
+
+
+
+        }
+
+
+
+
+
+
+
+        if (
+
+
+
+            tempoRestante <= 0
+
+
+
+        ) {
+
+
+
+            ultimoSegundoComBip = null;
+
+
+
+            tocarBipsFinal();
+
+
+
+            proximaFase();
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       PRÓXIMA FASE
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function proximaFase() {
+
+    const c = config();
+
+    if (faseAtual === "preparacao") {
+        faseAtual = "exercicio";
+        duracaoFase = c.exercicio;
+        tempoRestante = duracaoFase;
+        inicioFase = Date.now();
+        ultimoSegundoComBip = null;
+        atualizarTela();
+        return;
+    }
+
+    if (faseAtual === "exercicio") {
+        // O último exercício de cada volta termina sem intervalo.
+        if (exercicioAtual >= c.exercicios) {
+            avancarExercicio();
+            return;
+        }
+
+        if (c.intervalo > 0) {
+            faseAtual = "intervalo";
+            duracaoFase = c.intervalo;
+            tempoRestante = duracaoFase;
+            inicioFase = Date.now();
+            ultimoSegundoComBip = null;
+            atualizarTela();
+            return;
+        }
+
+        avancarExercicio();
+        return;
+    }
+
+    avancarExercicio();
+}
+
+
+
+    /* =========================================
+       AVANÇAR
+    ========================================= */
+
+    function avancarExercicio() {
+
+
+
+
+
+
+
+        const c =
+
+
+
+            config();
+
+
+
+
+
+
+
+
+
+
+
+        if (
+
+
+
+            exercicioAtual <
+
+
+
+            c.exercicios
+
+
+
+        ) {
+
+
+
+
+
+
+
+            exercicioAtual++;
+
+
+
+
+
+
+
+
+
+
+
+            faseAtual =
+
+
+
+                "exercicio";
+
+
+
+
+
+
+
+
+
+
+
+            duracaoFase =
+
+
+
+                c.exercicio;
+
+
+
+
+
+
+
+
+
+
+
+            tempoRestante =
+
+
+
+                duracaoFase;
+
+
+
+
+
+
+
+
+
+
+
+            inicioFase =
+
+
+
+                Date.now();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ultimoSegundoComBip = null;
+
+
+
+
+
+
+
+            atualizarTela();
+
+
+
+
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        if (
+
+
+
+            voltaAtual <
+
+
+
+            c.voltas
+
+
+
+        ) {
+
+
+
+
+
+
+
+            voltaAtual++;
+
+
+
+
+
+
+
+            exercicioAtual = 1;
+
+
+
+
+
+
+
+
+
+
+
+            faseAtual =
+
+
+
+                "exercicio";
+
+
+
+
+
+
+
+
+
+
+
+            duracaoFase =
+
+
+
+                c.exercicio;
+
+
+
+
+
+
+
+
+
+
+
+            tempoRestante =
+
+
+
+                duracaoFase;
+
+
+
+
+
+
+
+
+
+
+
+            inicioFase =
+
+
+
+                Date.now();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ultimoSegundoComBip = null;
+
+
+
+
+
+
+
+            atualizarTela();
+
+
+
+
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        finalizar();
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       PAUSAR / CONTINUAR
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function pausar() {
+
+
+
+
+
+
+
+        if (!rodando) {
+
+
+
+            return;
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        if (!pausado) {
+
+
+
+
+
+
+
+            tempoPausado =
+
+
+
+                Date.now();
+
+
+
+
+
+
+
+
+
+
+
+            pausado = true;
+
+
+
+
+
+
+
+
+
+
+
+            btnPausar.textContent =
+
+
+
+                "▶  CONTINUAR";
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+        else {
+
+
+
+
+
+
+
+            inicioFase +=
+
+
+
+                Date.now() -
+
+
+
+                tempoPausado;
+
+
+
+
+
+
+
+
+
+
+
+            pausado = false;
+
+
+
+
+
+
+
+
+
+
+
+            btnPausar.textContent =
+
+
+
+                "⏸  PAUSAR";
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       PARAR
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function parar() {
+
+
+
+
+
+
+
+        clearInterval(timer);
+
+
+
+
+
+
+
+
+
+
+
+        rodando = false;
+
+
+
+
+
+
+
+        pausado = false;
+
+
+
+
+
+
+
+
+
+
+
+        btnPausar.textContent =
+
+
+
+            "⏸  PAUSAR";
+
+
+
+
+
+
+
+
+
+
+
+        telaTreino.style.display =
+
+
+
+            "none";
+
+
+
+
+
+
+
+
+
+
+
+        telaConfiguracao.style.display =
+
+
+
+            "block";
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       FINALIZAR
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function finalizar() {
+
+
+
+
+
+
+
+        clearInterval(timer);
+
+
+
+
+
+
+
+
+
+
+
+        rodando = false;
+
+
+
+
+
+
+
+        pausado = false;
+
+
+
+
+
+
+
+
+
+
+
+        tempoFinal.textContent =
+
+
+
+            formatarTempo(
+
+
+
+                calcularTempoTotal()
+
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+        telaTreino.style.display =
+
+
+
+            "none";
+
+
+
+
+
+
+
+
+
+
+
+        telaFinal.style.display =
+
+
+
+            "block";
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       NOVO TREINO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    function novoTreino() {
+        exerciciosInput.value = 7;
+        tempoExercicioInput.value = 30;
+        tempoIntervaloInput.value = 20;
+        voltasInput.value = 1;
+
+        atualizarTempoTotal();
+        treinoEditandoId = null;
+        mostrarConfiguracao();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       EVENTOS
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+
+    btnSalvarTreino.addEventListener(
+        "click",
+        salvarTreino
+    );
+
+    btnNovoTreinoInicio.addEventListener(
+        "click",
+        novoTreino
+    );
+
+    btnVoltarTreinos.addEventListener(
+        "click",
+        mostrarInicio
+    );
+
+
+    btnComecar.addEventListener(
+
+
+
+        "click",
+
+
+
+        comecar
+
+
+
+    );
+
+
+
+
+
+
+
+
+
+
+
+    btnPausar.addEventListener(
+
+
+
+        "click",
+
+
+
+        pausar
+
+
+
+    );
+
+
+
+
+
+
+
+
+
+
+
+    btnParar.addEventListener(
+
+
+
+        "click",
+
+
+
+        parar
+
+
+
+    );
+
+
+
+
+
+
+
+
+
+
+
+    btnNovoTreino.addEventListener(
+
+
+
+        "click",
+
+
+
+        novoTreino
+
+
+
+    );
+
+
+
+
+
+
+
+
+
+
+
+    [
+
+
+
+        exerciciosInput,
+
+
+
+        tempoExercicioInput,
+
+
+
+        tempoIntervaloInput,
+
+
+
+        voltasInput
+
+
+
+
+
+
+
+    ].forEach(
+
+
+
+        input => {
+
+
+
+
+
+
+
+            input.addEventListener(
+
+
+
+                "input",
+
+
+
+                atualizarTempoTotal
+
+
+
+            );
+
+
+
+
+
+
+
+        }
+
+
+
+    );
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================
+
+
+
+       INICIALIZAÇÃO
+
+
+
+    ========================================= */
+
+
+
+
+
+
+
+    atualizarTempoTotal();
+
+    if (obterTreinosSalvos().length > 0) {
+        mostrarInicio();
+    } else {
+        telaInicio.style.display = "none";
+        telaConfiguracao.style.display = "block";
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+</html>
