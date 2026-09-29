@@ -12,6 +12,12 @@
 
 <head>
 
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b5cff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MC TIMER">
+
 
 
     <meta charset="UTF-8">
@@ -8490,7 +8496,15 @@ circuloProgresso.style.strokeDashoffset =
 </script>
 
 
-
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(() => console.log("MC TIMER: Service Worker registrado."))
+            .catch((error) => console.error("MC TIMER: erro ao registrar Service Worker:", error));
+    });
+}
+</script>
 
 
 
