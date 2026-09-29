@@ -1,0 +1,17 @@
+{
+    "name": "MC TIMER",
+    "short_name": "MC TIMER",
+    "description": "Timer de circuitos de treinamento",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#050505",
+    "theme_color": "#0b5cff",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "imagens/icone-mc.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
